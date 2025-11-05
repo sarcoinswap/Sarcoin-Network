@@ -25,8 +25,8 @@ ENV GOARCH=amd64
 ENV GOTOOLCHAIN=auto
 
 # Build geth (may take 10-15 minutes on Railway)
-# GOTOOLCHAIN=auto allows Go to download Go 1.24+ if needed
-RUN go build -v -o geth ./cmd/geth
+# Force GOTOOLCHAIN=auto to download Go 1.24+ (Railway sets GOTOOLCHAIN=local)
+RUN GOTOOLCHAIN=auto go build -v -o geth ./cmd/geth
 
 # Runtime stage - minimal Ubuntu
 FROM ubuntu:22.04
