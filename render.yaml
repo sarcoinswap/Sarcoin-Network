@@ -9,7 +9,7 @@ services:
     runtime: docker
     dockerfilePath: ./Dockerfile.sarcoin
     plan: free
-    region: frankfurt  # EU Central region
+    region: frankfurt # EU Central region
     envVars:
       - key: NETWORK_ID
         value: "3901"

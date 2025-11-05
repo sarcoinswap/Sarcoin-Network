@@ -1,0 +1,11 @@
+{
+  "endpoint": "https://sarcoin-rpc-production-a8f3.up.railway.app",
+  "results": {
+    "Passed": 2,
+    "Total": 5,
+    "Failed": 3
+  },
+  "network_expected": "3901",
+  "timestamp": "2025-11-04_21-28-18",
+  "chainId_expected": "0xf3d (3901)"
+}

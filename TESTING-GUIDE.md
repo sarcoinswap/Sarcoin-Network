@@ -25,6 +25,7 @@ Testiamo Sarcoin Network su 3 piattaforme cloud gratuite:
 ### Configurazione Avanzata
 
 1. **Settings** → **Environment Variables**:
+
    ```
    NETWORK_ID=3901
    HTTP_PORT=8545
@@ -32,6 +33,7 @@ Testiamo Sarcoin Network su 3 piattaforme cloud gratuite:
    ```
 
 2. **Settings** → **Service**:
+
    - Region: `us-west` (più veloce per test)
    - Instance: Hobby (512MB RAM)
 
@@ -58,12 +60,14 @@ curl -X POST https://sarcoin-testnet.railway.app:8545 \
 ```
 
 ### Vantaggi
+
 - ✅ Deploy in 2 minuti
 - ✅ Auto-deploy da GitHub
 - ✅ 500h/mese gratis
 - ✅ Facile scalabilità
 
 ### Svantaggi
+
 - ⚠️ Sleep dopo 15 min inattività (Hobby plan)
 - ⚠️ Limitato a 500h/mese
 - ⚠️ RAM limitata (512MB)
@@ -82,6 +86,7 @@ curl -X POST https://sarcoin-testnet.railway.app:8545 \
 ### Configurazione
 
 1. **Basic Settings**:
+
    - Name: `sarcoin-testnet`
    - Region: **Frankfurt** (Europa! 🇪🇺)
    - Branch: `main`
@@ -89,9 +94,11 @@ curl -X POST https://sarcoin-testnet.railway.app:8545 \
    - Dockerfile Path: `./Dockerfile.sarcoin`
 
 2. **Instance Type**:
+
    - Free (512MB RAM, 0.1 CPU)
 
 3. **Environment Variables**:
+
    ```
    NETWORK_ID=3901
    PORT=8545
@@ -118,6 +125,7 @@ curl -X POST https://sarcoin-testnet.onrender.com/rpc \
 ```
 
 ### Vantaggi
+
 - ✅ Europa (bassa latenza EU)
 - ✅ 750h/mese gratis
 - ✅ Persistent disk incluso
@@ -125,6 +133,7 @@ curl -X POST https://sarcoin-testnet.onrender.com/rpc \
 - ✅ SSL/HTTPS automatico
 
 ### Svantaggi
+
 - ⚠️ Sleep dopo 15 min inattività
 - ⚠️ Cold start ~30 secondi
 - ⚠️ Free tier limitato
@@ -177,6 +186,7 @@ curl -X POST https://sarcoin-testnet-xxxxx-ew.a.run.app \
 ```
 
 ### Vantaggi
+
 - ✅ Europa (europe-west1)
 - ✅ Sempre gratis sotto soglia (2M richieste/mese)
 - ✅ Auto-scaling
@@ -184,6 +194,7 @@ curl -X POST https://sarcoin-testnet-xxxxx-ew.a.run.app \
 - ✅ Google infrastructure
 
 ### Svantaggi
+
 - ⚠️ Setup più complesso
 - ⚠️ Richiede gcloud CLI
 - ⚠️ Stateless (no persistent disk default)
@@ -192,32 +203,36 @@ curl -X POST https://sarcoin-testnet-xxxxx-ew.a.run.app \
 
 ## Confronto Piattaforme
 
-| Feature | Railway | Render | Google Cloud Run |
-|---------|---------|--------|------------------|
-| **Costo/mese** | $0 (500h) | $0 (750h) | $0 (sotto soglia) |
-| **RAM** | 512MB | 512MB | 1GB |
-| **Regione EU** | ❌ US only | ✅ Frankfurt | ✅ europe-west1 |
-| **Persistent Disk** | ❌ | ✅ 10GB | ⚠️ Extra config |
-| **Auto-deploy** | ✅ | ✅ | ⚠️ Manual |
-| **Cold Start** | <5s | ~30s | <10s |
-| **Sleep Timeout** | 15 min | 15 min | Immediate |
-| **Setup Time** | 2 min | 5 min | 10 min |
-| **Best For** | Quick test | EU production | Scalability |
+| Feature             | Railway    | Render        | Google Cloud Run  |
+| ------------------- | ---------- | ------------- | ----------------- |
+| **Costo/mese**      | $0 (500h)  | $0 (750h)     | $0 (sotto soglia) |
+| **RAM**             | 512MB      | 512MB         | 1GB               |
+| **Regione EU**      | ❌ US only | ✅ Frankfurt  | ✅ europe-west1   |
+| **Persistent Disk** | ❌         | ✅ 10GB       | ⚠️ Extra config   |
+| **Auto-deploy**     | ✅         | ✅            | ⚠️ Manual         |
+| **Cold Start**      | <5s        | ~30s          | <10s              |
+| **Sleep Timeout**   | 15 min     | 15 min        | Immediate         |
+| **Setup Time**      | 2 min      | 5 min         | 10 min            |
+| **Best For**        | Quick test | EU production | Scalability       |
 
 ---
 
 ## 🎯 Raccomandazioni
 
 ### Per Testing Rapido
+
 **→ Railway.app** (2 minuti, più facile)
 
 ### Per Produzione EU
+
 **→ Render.com** (Frankfurt, persistent disk)
 
 ### Per Scalabilità
+
 **→ Google Cloud Run** (auto-scaling, infrastruttura enterprise)
 
 ### Per Permanente Gratis
+
 **→ Oracle Cloud Always Free** (2 VM, SEMPRE gratis, vedi DEPLOYMENT-GUIDE.md)
 
 ---
@@ -225,24 +240,28 @@ curl -X POST https://sarcoin-testnet-xxxxx-ew.a.run.app \
 ## 📊 Piano di Test
 
 ### Giorno 1: Railway
+
 1. Deploy su Railway
 2. Test RPC endpoints
 3. Verifica logs
 4. Test MetaMask connection
 
 ### Giorno 2: Render
+
 1. Deploy su Render (EU)
 2. Test latenza Europa
 3. Verifica persistent disk
 4. Load testing
 
 ### Giorno 3: Google Cloud Run
+
 1. Deploy su GCP
 2. Test auto-scaling
 3. Verifica costi
 4. Performance testing
 
 ### Giorno 4: Decisione
+
 - Analizza risultati
 - Scegli piattaforma finale
 - Deploy Oracle Cloud per produzione
@@ -252,6 +271,7 @@ curl -X POST https://sarcoin-testnet-xxxxx-ew.a.run.app \
 ## 🆘 Troubleshooting
 
 ### Railway: Build Failed
+
 ```bash
 # Check logs
 railway logs
@@ -261,12 +281,14 @@ railway up
 ```
 
 ### Render: Cold Start Lento
+
 ```bash
 # Upgrade to Starter plan ($7/mo)
 # Or keep instance warm con cron job
 ```
 
 ### GCP: Permission Denied
+
 ```bash
 # Check IAM roles
 gcloud projects add-iam-policy-binding PROJECT_ID \
