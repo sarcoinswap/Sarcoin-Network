@@ -1,0 +1,62 @@
+# Sarcoin Network Node - Railway Deployment
+# Multi-stage build with Go 1.23+ (Railway compatible)
+
+FROM golang:1.23-bookworm AS builder
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
+    gcc \
+    g++ \
+    make \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /build
+
+# Copy source code
+COPY . .
+
+# Set Go environment for compatibility
+ENV GO111MODULE=on
+ENV CGO_ENABLED=1
+ENV GOOS=linux
+ENV GOARCH=amd64
+
+# Build geth (may take 10-15 minutes on Railway)
+RUN go build -v -o geth ./cmd/geth
+
+# Runtime stage - minimal Ubuntu
+FROM ubuntu:22.04
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    libstdc++6 \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create data directory
+RUN mkdir -p /root/.sarcoin
+
+# Copy binary from builder
+COPY --from=builder /build/geth /usr/local/bin/geth
+RUN chmod +x /usr/local/bin/geth
+
+# Copy genesis files
+COPY genesis-testnet.json /genesis-testnet.json
+COPY genesis-mainnet.json /genesis-mainnet.json
+
+# Expose ports
+EXPOSE 8545 8546 30303 30303/udp
+
+# Working directory
+WORKDIR /root
+
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8545 || exit 1
+
+# Default command (will be overridden by Railway start command)
+ENTRYPOINT ["geth"]
+CMD ["--help"]

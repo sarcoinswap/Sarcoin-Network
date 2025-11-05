@@ -23,8 +23,8 @@ COPY genesis-mainnet.json /genesis-mainnet.json
 # Expose ports
 EXPOSE 8545 8546 30303 30303/udp
 
-# Set data directory
-VOLUME /root/.sarcoin
+# Working directory
+WORKDIR /root
 
 # Default command
 ENTRYPOINT ["geth"]
