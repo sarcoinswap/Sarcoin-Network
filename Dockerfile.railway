@@ -22,8 +22,10 @@ ENV GO111MODULE=on
 ENV CGO_ENABLED=1
 ENV GOOS=linux
 ENV GOARCH=amd64
+ENV GOTOOLCHAIN=auto
 
 # Build geth (may take 10-15 minutes on Railway)
+# GOTOOLCHAIN=auto allows Go to download Go 1.24+ if needed
 RUN go build -v -o geth ./cmd/geth
 
 # Runtime stage - minimal Ubuntu
