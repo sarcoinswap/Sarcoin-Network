@@ -1,20 +1,27 @@
-# Render deployment configuration
+# Render deployment configuration for Sarcoin Network
 # https://render.com
+# IMPORTANT: Using 'pserv' (Private Service) instead of 'web'
+# This allows the node to run without health check requirements
 
 services:
-  - type: web
-    name: sarcoin-rpc
-    env: docker
+  - type: pserv
+    name: sarcoin-node-eu
+    runtime: docker
     dockerfilePath: ./Dockerfile.sarcoin
     plan: free
-    region: frankfurt  # Europe region
+    region: frankfurt  # EU Central region
     envVars:
       - key: NETWORK_ID
         value: "3901"
-      - key: PORT
+      - key: HTTP_PORT
         value: "8545"
+      - key: WS_PORT
+        value: "8546"
+      - key: P2P_PORT
+        value: "30303"
     disk:
       name: sarcoin-data
       mountPath: /root/.sarcoin
       sizeGB: 10
-    healthCheckPath: /
+    # NO healthCheckPath - private services don't need it
+    autoDeploy: true
