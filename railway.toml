@@ -13,9 +13,8 @@ dockerfilePath = "Dockerfile.railway"
 startCommand = "/railway-start.sh"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
-healthcheckPath = "/"
-healthcheckTimeout = 300
 
 # Railway automatic port detection
 # Railway will expose the port automatically via the $PORT environment variable
 # The startup script (railway-start.sh) handles this correctly
+# NO healthcheck - Railway will detect the service is running by process, not HTTP response
