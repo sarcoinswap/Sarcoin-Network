@@ -1,5 +1,5 @@
-# Sarcoin Network Node - Production Dockerfile
-# Multi-stage build for Linux deployment (Render.com, Oracle Cloud, etc.)
+# Sarcoin Local Test Dockerfile
+# Multi-stage build: compiles geth from source inside Docker
 
 # Build stage
 FROM golang:1.23-bookworm AS builder
