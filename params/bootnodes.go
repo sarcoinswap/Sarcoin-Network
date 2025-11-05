@@ -30,6 +30,18 @@ var MainnetBootnodes = []string{
 	"enode://5db798deb67df75d073f8e2953dad283148133acb520625ea804c9c4ad09a35f13592a762d8f89056248f3889f6dcc33490c145774ea4ff2966982294909b37a@107.20.191.97:30311",
 }
 
+// SarcoinMainnetBootnodes are the enode URLs of the P2P bootstrap nodes running on
+// the Sarcoin mainnet network.
+var SarcoinMainnetBootnodes = []string{
+	// Will be populated after mainnet launch with actual bootnode addresses
+}
+
+// SarcoinTestnetBootnodes are the enode URLs of the P2P bootstrap nodes running on
+// the Sarcoin testnet network.
+var SarcoinTestnetBootnodes = []string{
+	// Will be populated after testnet setup with actual bootnode addresses
+}
+
 var V5Bootnodes = []string{
 	// Teku team's bootnode
 	"enr:-KG4QMOEswP62yzDjSwWS4YEjtTZ5PO6r65CPqYBkgTTkrpaedQ8uEUo1uMALtJIvb2w_WWEVmg5yt1UAuK1ftxUU7QDhGV0aDKQu6TalgMAAAD__________4JpZIJ2NIJpcIQEnfA2iXNlY3AyNTZrMaEDfol8oLr6XJ7FsdAYE7lpJhKMls4G_v6qQOGKJUWGb_uDdGNwgiMog3VkcIIjKA", // # 4.157.240.54 | azure-us-east-virginia
