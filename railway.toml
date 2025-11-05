@@ -8,9 +8,14 @@ dockerfilePath = "Dockerfile.railway"
 
 # Deploy settings
 [deploy]
-startCommand = "geth --datadir /root/.sarcoin --networkid 3901 --http --http.addr 0.0.0.0 --http.port $PORT --http.api eth,net,web3,txpool --http.corsdomain '*' --http.vhosts '*' --ws --ws.addr 0.0.0.0 --ws.port 8546 --ws.api eth,net,web3 --ws.origins '*' --port 30303 --maxpeers 50 --cache 256 --verbosity 3"
+# Use startup script instead of direct command
+# Script handles PORT env var and provides better logging
+startCommand = "/railway-start.sh"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
+healthcheckPath = "/"
+healthcheckTimeout = 300
 
 # Railway automatic port detection
 # Railway will expose the port automatically via the $PORT environment variable
+# The startup script (railway-start.sh) handles this correctly

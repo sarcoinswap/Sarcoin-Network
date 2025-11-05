@@ -49,16 +49,20 @@ RUN chmod +x /usr/local/bin/geth
 COPY genesis-testnet.json /genesis-testnet.json
 COPY genesis-mainnet.json /genesis-mainnet.json
 
+# Copy startup script
+COPY railway-start.sh /railway-start.sh
+RUN chmod +x /railway-start.sh
+
 # Expose ports
 EXPOSE 8545 8546 30303 30303/udp
 
 # Working directory
 WORKDIR /root
 
-# Healthcheck
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8545 || exit 1
+# Healthcheck - more permissive for Railway
+# Check if geth is responding (not just if server is up)
+HEALTHCHECK --interval=30s --timeout=15s --start-period=120s --retries=5 \
+    CMD curl -sf -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"net_version","params":[],"id":1}' http://localhost:${PORT:-8545} || exit 1
 
-# Default command (will be overridden by Railway start command)
-ENTRYPOINT ["geth"]
-CMD ["--help"]
+# Use startup script as entrypoint
+ENTRYPOINT ["/railway-start.sh"]
