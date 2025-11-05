@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  sarcoin-rpc:
+    build:
+      context: .
+      dockerfile: Dockerfile.sarcoin
+    container_name: sarcoin-rpc
+    restart: unless-stopped
+    ports:
+      - "8545:8545"
+      - "8546:8546"
+      - "30303:30303"
+      - "30303:30303/udp"
+    volumes:
+      - sarcoin-data:/root/.sarcoin
+    command: >
+      geth --datadir /root/.sarcoin
+      --networkid 3901
+      --http --http.addr 0.0.0.0 --http.port 8545
+      --http.api eth,net,web3,txpool
+      --http.corsdomain "*"
+      --http.vhosts "*"
+      --ws --ws.addr 0.0.0.0 --ws.port 8546
+      --ws.api eth,net,web3
+      --ws.origins "*"
+      --port 30303
+      --maxpeers 50
+      --cache 512
+      --verbosity 3
+    environment:
+      - TZ=UTC
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O-", "http://localhost:8545"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 1800M
+        reservations:
+          memory: 1G
+
+volumes:
+  sarcoin-data:
+    driver: local

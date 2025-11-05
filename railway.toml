@@ -1,0 +1,37 @@
+# Railway deployment configuration
+# https://railway.app
+
+# Build settings
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile.sarcoin"
+
+# Service settings
+[[services]]
+name = "sarcoin-rpc"
+
+[services.env]
+NETWORK_ID = "3901"
+HTTP_PORT = "8545"
+WS_PORT = "8546"
+P2P_PORT = "30303"
+
+[[services.volumes]]
+name = "sarcoin-data"
+mountPath = "/root/.sarcoin"
+
+[[services.ports]]
+port = 8545
+protocol = "http"
+
+[[services.ports]]
+port = 8546
+protocol = "http"
+
+[[services.ports]]
+port = 30303
+protocol = "tcp"
+
+[[services.healthcheck]]
+path = "/"
+port = 8545

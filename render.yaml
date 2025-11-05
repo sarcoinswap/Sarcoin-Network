@@ -1,0 +1,20 @@
+# Render deployment configuration
+# https://render.com
+
+services:
+  - type: web
+    name: sarcoin-rpc
+    env: docker
+    dockerfilePath: ./Dockerfile.sarcoin
+    plan: free
+    region: frankfurt  # Europe region
+    envVars:
+      - key: NETWORK_ID
+        value: "3901"
+      - key: PORT
+        value: "8545"
+    disk:
+      name: sarcoin-data
+      mountPath: /root/.sarcoin
+      sizeGB: 10
+    healthCheckPath: /
