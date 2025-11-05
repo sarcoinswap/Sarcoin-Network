@@ -1,0 +1,29 @@
+# Sarcoin Network Node - Local Windows Test
+# Uses Windows binary in WSL2 or Linux container
+
+FROM ubuntu:22.04
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create data directory
+RUN mkdir -p /root/.sarcoin
+
+# Copy genesis files (binary will be mounted as volume)
+COPY genesis-testnet.json /genesis-testnet.json
+COPY genesis-mainnet.json /genesis-mainnet.json
+
+# Expose ports
+EXPOSE 8545 8546 30303 30303/udp
+
+# Set data directory
+VOLUME /root/.sarcoin
+
+# Working directory
+WORKDIR /root
+
+# Note: geth binary should be mounted as volume at runtime
+# Example: docker run -v $(pwd)/build/bin:/app ...
