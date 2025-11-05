@@ -13,6 +13,7 @@
 ## OPZIONE 1: Oracle Cloud Always Free (RACCOMANDATO) 🥇
 
 ### Vantaggi
+
 - ✅ **SEMPRE GRATIS** (nessuna scadenza)
 - ✅ **2 VM permanenti** (1 OCPU, 1GB RAM ciascuna)
 - ✅ **Nessuna carta di credito** richiesta inizialmente
@@ -34,10 +35,12 @@
 ### Passo 2: Crea Prima VM (RPC Node)
 
 1. **Nella console Oracle Cloud**:
+
    - Menu ☰ → "Compute" → "Instances"
    - Click "Create Instance"
 
 2. **Configura VM**:
+
    - **Name**: `sarcoin-rpc-node-1`
    - **Placement**: Lascia default
    - **Image**: ✅ Ubuntu 22.04 Minimal (Always Free eligible)
@@ -46,8 +49,8 @@
      - 1 GB RAM
      - Se non vedi questa opzione, click "Change Shape" → "Specialty and previous generation" → seleziona E2.1.Micro
    - **Networking**: Lascia default (VCN creata automaticamente)
-   - **SSH Keys**: 
-     - ✅ "Generate SSH key pair" 
+   - **SSH Keys**:
+     - ✅ "Generate SSH key pair"
      - Download **private key** (es: `ssh-key-2025-11-04.key`)
      - ⚠️ **SALVA QUESTO FILE** - serve per connetterti!
    - **Boot Volume**: 50 GB (Always Free include fino a 200GB totali)
@@ -61,35 +64,38 @@
 1. **Nella stessa pagina della VM**:
    - Scroll down → "Primary VNIC" section
    - Click sul nome della Subnet (es: `subnet-xxxxx`)
-   
 2. **Nella pagina Subnet**:
    - "Security Lists" → Click sul Security List (es: `Default Security List`)
-   
 3. **Aggiungi Ingress Rules**:
+
    - Click "Add Ingress Rules"
-   
+
    **Regola 1 - HTTP RPC:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: TCP
    - Destination Port Range: `8545`
    - Description: `Sarcoin RPC HTTP`
    - Click "Add Ingress Rules"
-   
+
    **Regola 2 - WebSocket:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: TCP
    - Destination Port Range: `8546`
    - Description: `Sarcoin RPC WebSocket`
    - Click "Add Ingress Rules"
-   
+
    **Regola 3 - P2P TCP:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: TCP
    - Destination Port Range: `30303`
    - Description: `Sarcoin P2P`
    - Click "Add Ingress Rules"
-   
+
    **Regola 4 - P2P UDP:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: UDP
    - Destination Port Range: `30303`
@@ -110,6 +116,7 @@ ssh -i "C:\path\to\ssh-key-2025-11-04.key" ubuntu@YOUR_PUBLIC_IP
 ```
 
 **Prima connessione:**
+
 - Rispondere "yes" quando chiede di aggiungere l'host
 
 ### Passo 5: Deploy Automatico con Script
@@ -148,11 +155,11 @@ sudo usermod -aG docker ubuntu
 # Install git
 sudo apt-get install -y git
 
-# Clone repository (SOSTITUISCI YOUR_USERNAME)
+# Clone repository
 echo "📂 Cloning Sarcoin repository..."
 cd ~
-git clone https://github.com/YOUR_USERNAME/sarcoin-network.git
-cd sarcoin-network
+git clone https://github.com/sarcoinswap/Sarcoin-Network.git
+cd Sarcoin-Network
 
 # Build Docker image
 echo "🏗️  Building Docker image (10-15 min)..."
@@ -228,11 +235,8 @@ EOF
 # 2. Rendi eseguibile
 chmod +x setup-sarcoin.sh
 
-# 3. IMPORTANTE: Modifica YOUR_USERNAME con il tuo username GitHub
-nano setup-sarcoin.sh
-# Trova la riga "git clone https://github.com/YOUR_USERNAME/sarcoin-network.git"
-# Sostituisci YOUR_USERNAME con il tuo vero username
-# Salva: Ctrl+O, Enter, Ctrl+X
+# 3. Il repository è già configurato correttamente
+# (usa https://github.com/sarcoinswap/Sarcoin-Network.git)
 
 # 4. Esegui lo script
 ./setup-sarcoin.sh
@@ -241,6 +245,7 @@ nano setup-sarcoin.sh
 ### Passo 6: Verifica Deployment
 
 **Dalla VM Oracle Cloud:**
+
 ```bash
 # Check container status
 sudo docker ps
@@ -256,6 +261,7 @@ curl -X POST http://localhost:8545 \
 ```
 
 **Dal tuo PC Windows:**
+
 ```powershell
 # Sostituisci YOUR_PUBLIC_IP con l'IP della VM
 $IP = "YOUR_PUBLIC_IP"
@@ -301,6 +307,7 @@ sudo docker run -d \
 ```
 
 **Per ottenere l'enode del RPC node:**
+
 ```bash
 # Sulla prima VM (RPC node)
 sudo docker exec sarcoin-rpc geth attach --exec "admin.nodeInfo.enode" /root/.sarcoin/geth.ipc
@@ -311,6 +318,7 @@ sudo docker exec sarcoin-rpc geth attach --exec "admin.nodeInfo.enode" /root/.sa
 ## OPZIONE 2: Railway.app 🚂
 
 ### Vantaggi
+
 - ✅ 500 ore/mese gratis
 - ✅ Deployment Git automatico
 - ✅ Interfaccia semplice
@@ -333,6 +341,7 @@ sudo docker exec sarcoin-rpc geth attach --exec "admin.nodeInfo.enode" /root/.sa
 7. **Deploy**: Automatico dopo commit
 
 ### Costi
+
 - **Gratis**: Primi 500h/mese (~20 giorni)
 - **Dopo**: $0.000463/GB-s ($3-5/mese per 1GB RAM continuous)
 
@@ -341,6 +350,7 @@ sudo docker exec sarcoin-rpc geth attach --exec "admin.nodeInfo.enode" /root/.sa
 ## OPZIONE 3: Render.com 🎨
 
 ### Vantaggi
+
 - ✅ 750 ore/mese gratis
 - ✅ Regione Europa (Frankfurt)
 - ✅ Persistent disk incluso
@@ -365,6 +375,7 @@ sudo docker exec sarcoin-rpc geth attach --exec "admin.nodeInfo.enode" /root/.sa
 7. **Deploy**
 
 ### Limitazioni Free Tier
+
 - 750h/mese
 - Sospensione dopo 15 min inattività
 - Riavvio automatico su richiesta
@@ -374,6 +385,7 @@ sudo docker exec sarcoin-rpc geth attach --exec "admin.nodeInfo.enode" /root/.sa
 ## OPZIONE 4: Google Cloud (e2-micro) ☁️
 
 ### Vantaggi
+
 - ✅ $300 crediti gratis (90 giorni)
 - ✅ e2-micro always free dopo crediti
 - ✅ Performance migliore
@@ -392,6 +404,7 @@ sudo docker exec sarcoin-rpc geth attach --exec "admin.nodeInfo.enode" /root/.sa
 5. **SSH** → Follow same steps as Oracle Cloud
 
 ### Firewall Rules
+
 ```bash
 gcloud compute firewall-rules create sarcoin-rpc \
   --allow tcp:8545,tcp:8546,tcp:30303,udp:30303 \
@@ -566,7 +579,7 @@ Una volta deployment completato:
 
 ## 📞 Support
 
-- **Repo**: https://github.com/YOUR_USERNAME/sarcoin-network
+- **Repo**: https://github.com/sarcoinswap/Sarcoin-Network
 - **Docs**: README.md, SETUP.md
 - **Issues**: GitHub Issues
 
@@ -574,11 +587,11 @@ Una volta deployment completato:
 
 **DEPLOYMENT SUMMARY:**
 
-| Platform | Cost | RAM | Deployment Time | Best For |
-|----------|------|-----|-----------------|----------|
-| **Oracle Cloud** | **FREE forever** | 1GB x2 | 15 min | **Production** |
-| Railway | $0-5/mo | 1GB | 5 min | Testing |
-| Render | FREE 750h | 512MB | 5 min | Testing |
-| GCP e2-micro | $7/mo | 1GB | 15 min | Production |
+| Platform         | Cost             | RAM    | Deployment Time | Best For       |
+| ---------------- | ---------------- | ------ | --------------- | -------------- |
+| **Oracle Cloud** | **FREE forever** | 1GB x2 | 15 min          | **Production** |
+| Railway          | $0-5/mo          | 1GB    | 5 min           | Testing        |
+| Render           | FREE 750h        | 512MB  | 5 min           | Testing        |
+| GCP e2-micro     | $7/mo            | 1GB    | 15 min          | Production     |
 
 **RACCOMANDAZIONE: Oracle Cloud Always Free (2 VM permanenti)**

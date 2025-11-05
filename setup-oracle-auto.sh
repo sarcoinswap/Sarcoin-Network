@@ -39,13 +39,13 @@ sudo chmod +x /usr/local/bin/docker-compose
 # Clone repository
 echo "📂 [5/8] Cloning Sarcoin Network repository..."
 cd ~
-if [ -d "sarcoin-network" ]; then
+if [ -d "Sarcoin-Network" ]; then
     echo "   Repository already exists, pulling latest..."
-    cd sarcoin-network
+    cd Sarcoin-Network
     git pull
 else
-    git clone https://github.com/YOUR_USERNAME/sarcoin-network.git
-    cd sarcoin-network
+    git clone https://github.com/sarcoinswap/Sarcoin-Network.git
+    cd Sarcoin-Network
 fi
 
 # Build Docker image

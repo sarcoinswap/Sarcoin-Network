@@ -9,12 +9,13 @@ Hai ora una blockchain completa, funzionante e pronta per il deployment cloud gr
 ## 📊 COSA È STATO CREATO
 
 ### 🔧 Core Blockchain
+
 - ✅ **Binary compilato**: `build/bin/geth.exe` (154 MB)
   - Versione: v1.0.0-sarcoin-testnet
   - Base: BSC fork con Parlia PoSA consensus
   - Windows-compatible (MinGW-w64 GCC 15.2.0)
-  
 - ✅ **Genesis Files**:
+
   - `genesis-testnet.json` (Chain ID: 3901, token: tSRS)
   - `genesis-mainnet.json` (Chain ID: 3900, token: SRS)
   - Block time: 1 secondo (3x più veloce di BSC)
@@ -27,6 +28,7 @@ Hai ora una blockchain completa, funzionante e pronta per il deployment cloud gr
   - Password: sarcoin2025
 
 ### 🤖 Automation Scripts (14 files)
+
 1. **quick-start.ps1** - Verifica sistema completo
 2. **setup-env.ps1** - Configura ambiente (PATH, CGO)
 3. **start-testnet.ps1** - Avvia nodo testnet singolo
@@ -35,9 +37,10 @@ Hai ora una blockchain completa, funzionante e pronta per il deployment cloud gr
 6. **test-docker.ps1** - Test Docker locale
 7. **create-validators.ps1** - Genera nuovi validator accounts
 8. **sarcoin-env.bat** - Setup ambiente Windows batch
-9-14. Altri utility scripts...
+   9-14. Altri utility scripts...
 
 ### 🐳 Docker Deployment (3 configurations)
+
 - **Dockerfile.sarcoin** - Multi-stage Alpine build
 - **docker-compose.oracle.yml** - Oracle Cloud (1GB RAM optimized)
 - **docker-compose.railway.yml** - Railway.app deployment
@@ -45,6 +48,7 @@ Hai ora una blockchain completa, funzionante e pronta per il deployment cloud gr
 - **railway.toml** - Railway settings
 
 ### 📚 Documentation (7 comprehensive guides)
+
 1. **README.md** - Overview generale + quick start
 2. **SETUP.md** - Setup locale Windows completo
 3. **DEPLOY.md** - Panoramica piattaforme cloud
@@ -54,6 +58,7 @@ Hai ora una blockchain completa, funzionante e pronta per il deployment cloud gr
 7. **QUESTO FILE** - Next steps summary
 
 ### 🔧 Bash Scripts
+
 - **setup-oracle.sh** - Oracle Cloud deployment originale
 - **setup-oracle-auto.sh** - Oracle Cloud fully automated
 
@@ -76,14 +81,12 @@ Hai ora una blockchain completa, funzionante e pronta per il deployment cloud gr
 
 ```powershell
 # In PowerShell (nella cartella bsc)
-# Sostituisci YOUR_USERNAME con il tuo username GitHub
-
-git remote add origin https://github.com/YOUR_USERNAME/sarcoin-network.git
+git remote add origin https://github.com/sarcoinswap/Sarcoin-Network.git
 git branch -M main
 git push -u origin main
 ```
 
-✅ **Verifica**: Vai su `https://github.com/YOUR_USERNAME/sarcoin-network` - dovresti vedere tutto il codice!
+✅ **Verifica**: Vai su `https://github.com/sarcoinswap/Sarcoin-Network` - dovresti vedere tutto il codice!
 
 ---
 
@@ -111,26 +114,30 @@ git push -u origin main
 4. **Configurazione**:
 
    **Name**: `sarcoin-rpc-node-1`
-   
-   **Image**: 
+
+   **Image**:
+
    - Click "Change Image"
    - Seleziona: **Ubuntu 22.04 Minimal** (Always Free eligible)
-   
+
    **Shape**:
+
    - Click "Change Shape"
    - Seleziona: **Specialty and previous generation**
    - Scegli: **VM.Standard.E2.1.Micro** (Always Free)
      - 1 OCPU
      - 1 GB RAM
-   
-   **Networking**: 
+
+   **Networking**:
+
    - Lascia default (VCN auto-created)
-   
+
    **SSH Keys**:
+
    - ✅ "Generate SSH key pair"
    - **Download private key** (es: `ssh-key-2025-11-04.key`)
    - ⚠️ **SALVA QUESTO FILE!** Serve per SSH!
-   
+
    **Boot Volume**: 50 GB (Always Free include 200GB totali)
 
 5. **Click**: "Create"
@@ -140,39 +147,45 @@ git push -u origin main
 #### 2C. Configura Firewall Oracle Cloud
 
 1. **Nella pagina VM**, scroll down:
+
    - "Primary VNIC" section
    - Click sul nome della **Subnet** (link blu)
 
 2. **Nella pagina Subnet**:
+
    - "Security Lists" section
    - Click sul **Security List** (es: "Default Security List for...")
 
 3. **Add Ingress Rules** (ripeti per ogni porta):
 
    **Click "Add Ingress Rules"** → Compila:
-   
+
    **Regola 1 - HTTP RPC:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: TCP
    - Destination Port Range: `8545`
    - Description: `Sarcoin RPC HTTP`
    - Click "Add Ingress Rules"
-   
+
    **Regola 2 - WebSocket:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: TCP
    - Destination Port Range: `8546`
    - Description: `Sarcoin WebSocket`
    - Click "Add Ingress Rules"
-   
+
    **Regola 3 - P2P TCP:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: TCP
    - Destination Port Range: `30303`
    - Description: `Sarcoin P2P TCP`
    - Click "Add Ingress Rules"
-   
+
    **Regola 4 - P2P UDP:**
+
    - Source CIDR: `0.0.0.0/0`
    - IP Protocol: UDP
    - Destination Port Range: `30303`
@@ -233,8 +246,8 @@ sudo apt-get install -y git
 # Clone repository
 echo "📂 [5/8] Cloning Sarcoin repository..."
 cd ~
-git clone https://github.com/YOUR_USERNAME/sarcoin-network.git
-cd sarcoin-network
+git clone https://github.com/sarcoinswap/Sarcoin-Network.git
+cd Sarcoin-Network
 
 # Build Docker image
 echo "🏗️  [6/8] Building Docker image (10-15 min)..."
@@ -310,11 +323,9 @@ EOF
 # 2. Rendi eseguibile
 chmod +x setup-sarcoin.sh
 
-# 3. IMPORTANTE: Modifica YOUR_USERNAME
-nano setup-sarcoin.sh
-# Trova: git clone https://github.com/YOUR_USERNAME/sarcoin-network.git
-# Sostituisci YOUR_USERNAME con il tuo username GitHub
-# Salva: Ctrl+O, Enter, Ctrl+X
+# 3. Il repository è già configurato correttamente
+# (usa https://github.com/sarcoinswap/Sarcoin-Network.git)
+# Non serve modificare nulla!
 
 # 4. Esegui deployment
 ./setup-sarcoin.sh
@@ -347,6 +358,7 @@ curl -X POST "http://${IP}:8545" -H "Content-Type: application/json" --data '{\"
 ```
 
 **Output atteso:**
+
 ```json
 {"jsonrpc":"2.0","id":1,"result":"0xf3d"}
 {"jsonrpc":"2.0","id":1,"result":"0x0"}
@@ -449,11 +461,13 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 
 ## 📞 SUPPORTO
 
-**Hai problemi?** 
+**Hai problemi?**
+
 - Leggi: `DEPLOYMENT-GUIDE.md` (ultra-dettagliato)
 - Chiedi e ti guido passo-passo!
 
-**Tutto funziona?** 
+**Tutto funziona?**
+
 - Share your RPC endpoint!
 - Contribuisci su GitHub!
 
@@ -464,6 +478,7 @@ echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
 Hai creato una blockchain completa da zero, partendo da BSC e adattandola per Sarcoin SRS Network!
 
 **Achievements unlocked:**
+
 - ✅ Blockchain Developer
 - ✅ DevOps Engineer
 - ✅ Cloud Architect

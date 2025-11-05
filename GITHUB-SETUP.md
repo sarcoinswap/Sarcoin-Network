@@ -14,8 +14,8 @@
 Dopo aver creato il repository, esegui questi comandi:
 
 ```powershell
-# Aggiungi remote GitHub (sostituisci 'YOUR_USERNAME' con il tuo username)
-git remote add origin https://github.com/YOUR_USERNAME/sarcoin-network.git
+# Aggiungi remote GitHub
+git remote add origin https://github.com/sarcoinswap/Sarcoin-Network.git
 
 # Rinomina branch a main (se necessario)
 git branch -M main
@@ -45,6 +45,6 @@ Una volta completato il push su GitHub, segui la guida in `DEPLOY.md` sezione "O
 
 ---
 
-**Repository URL formato**: `https://github.com/YOUR_USERNAME/sarcoin-network`
+**Repository URL**: `https://github.com/sarcoinswap/Sarcoin-Network`
 
 Questo URL sarà necessario per clonare il codice sulle VM Oracle Cloud.
